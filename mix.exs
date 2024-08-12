@@ -21,7 +21,7 @@ defmodule WallpaperGenerator.MixProject do
   defp deps do
     [
       {:jason, "~> 1.4"},
-      {:optimus, "~> 0.2"}
+      {:optimus, "~> 0.5"}
     ]
   end
 end
