@@ -4,10 +4,7 @@ defmodule WallpaperGenerator do
   @tmp_dir "/tmp/wallpapers"
 
   def generate(color_set, wallpaper, output_dir) do
-    original = Path.join(output_dir, "original.jpg")
-
     File.mkdir_p!(@tmp_dir)
-    File.copy!(wallpaper, original)
     File.mkdir_p!(output_dir)
 
     File.read!(color_set)
@@ -20,7 +17,7 @@ defmodule WallpaperGenerator do
     end)
     |> Stream.with_index(1)
     |> Task.async_stream(
-      fn {cmds_args, i} -> generate_wallpaper(cmds_args, i, output_dir, original) end,
+      fn {cmds_args, i} -> generate_wallpaper(cmds_args, i, output_dir, wallpaper) end,
       timeout: :infinity
     )
     |> Stream.run()
