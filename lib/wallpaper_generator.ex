@@ -8,7 +8,7 @@ defmodule WallpaperGenerator do
     File.mkdir_p!(output_dir)
 
     File.read!(color_set)
-    |> Jason.decode!(keys: :atoms)
+    |> :json.decode()
     |> Stream.map(fn color_set ->
       {lowthresh, highthresh, operations} = into_operations(color_set)
 
@@ -26,14 +26,14 @@ defmodule WallpaperGenerator do
   end
 
   defp into_operations(%{
-         l: lowthresh,
-         h: highthresh,
-         r: red,
-         y: yellow,
-         g: green,
-         c: cyan,
-         b: blue,
-         m: magenta
+         "l" => lowthresh,
+         "h" => highthresh,
+         "r" => red,
+         "y" => yellow,
+         "g" => green,
+         "c" => cyan,
+         "b" => blue,
+         "m" => magenta
        }) do
     operations =
       [r: red, y: yellow, g: green, c: cyan, b: blue, m: magenta]
